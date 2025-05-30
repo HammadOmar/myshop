@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock %}
+
+{% block content %}
+    <!-- Hero Banner -->
+    <section class="about-hero">
+        <div class="container">
+            <h1>Our Story</h1>
+            <p>Delivering quality products since 2015</p>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="mission">
+        <div class="container">
+            <div class="mission-content">
+                <h2>Our Mission</h2>
+                <p>At ShopCart, we believe in making online shopping effortless and enjoyable. We carefully curate our collection to bring you the best products at competitive prices.</p>
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="number">10,000+</span>
+                        <span class="label">Happy Customers</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="number">500+</span>
+                        <span class="label">Products</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="number">24/7</span>
+                        <span class="label">Support</span>
+                    </div>
+                </div>
+            </div>
+            <div class="mission-image">
+                <img src="{% static 'img/team.jpg' %}" alt="Our Team">
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team">
+        <div class="container">
+            <h2>Meet the Team</h2>
+            <div class="team-grid">
+                {% for member in team %}
+                <div class="team-member">
+                    <img src="{{ member.image.url }}" alt="{{ member.name }}">
+                    <h3>{{ member.name }}</h3>
+                    <p>{{ member.designation }}</p>
+                    <div class="social-links">
+                        <a href="{{ member.linkedin }}"><i class="fab fa-linkedin"></i></a>
+                        <a href="{{ member.twitter }}"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                {% endfor %}
+<!--               
+                <div class="team-member">
+                    <img src="images/team2.jpg" alt="Sarah Lee">
+                    <h3>Sarah Lee</h3>
+                    <p>Head of Operations</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="images/team3.jpg" alt="Michael Chen">
+                    <h3>Michael Chen</h3>
+                    <p>Lead Developer</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values">
+        <div class="container">
+            <h2>Our Core Values</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Quality</h3>
+                    <p>Every product is vetted for durability and performance.</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-shipping-fast"></i>
+                    <h3>Fast Shipping</h3>
+                    <p>90% of orders ship within 24 hours.</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-headset"></i>
+                    <h3>Support</h3>
+                    <p>Real humans ready to help via chat or phone.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

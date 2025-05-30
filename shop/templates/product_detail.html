@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
+    <script src="{% static 'js/product_detail.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb">
+        <div class="container">
+            <a href="index.html">Home</a> &gt;
+            <a href="products.html">Products</a> &gt;
+            <span>{{ product.name }}</span>
+        </div>
+    </div>
+
+    <!-- Product Main Section -->
+    <section class="product-detail">
+        <div class="container">
+            <!-- Product Gallery -->
+            <div class="product-gallery">
+                <div class="thumbnail-container">
+                    <div class="thumbnail active" data-target="main1">
+                        <img src="{{ product.image.url }}" alt="Headphones Thumbnail 1">
+                    <!-- </div>
+                    <div class="thumbnail" data-target="main2">
+                        <img src="images/products/headphones-2.jpg" alt="Headphones Thumbnail 2">
+                    </div>
+                    <div class="thumbnail" data-target="main3">
+                        <img src="images/products/headphones-3.jpg" alt="Headphones Thumbnail 3">
+                    </div> -->
+                </div>
+                <div class="main-image">
+                    <img id="main1" src="{{ product.image.url }}" alt="Wireless Headphones" class="active">
+                    <!-- <img id="main2" src="images/products/headphones-2.jpg" alt="Wireless Headphones Side View">
+                    <img id="main3" src="images/products/headphones-3.jpg" alt="Wireless Headphones Case"> -->
+                </div>
+            </div>
+
+            <!-- Product Info -->
+            <div class="product-info">
+                <h1>{{ product.name }}</h1>
+                <div class="rating">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <span class="review-count">(142 reviews)</span>
+                </div>
+                <div class="price-container">
+                    <span class="current-price">${{ product.price }}</span>
+                    <span class="original-price">$179.99</span>
+                    <span class="discount">50% OFF</span>
+                </div>
+                <p class="description">
+                    {{ product.description }}
+                    <!-- Experience crystal-clear sound with our premium wireless headphones. Featuring 40mm drivers, active noise cancellation, and 30-hour battery life. Includes carrying case and 3.5mm cable for wired listening. -->
+                </p>
+
+                <!-- Color Selection -->
+                <div class="color-options">
+                    <h3>Color:</h3>
+                    <div class="colors">
+                        <div class="color-option active" data-color="black">
+                            <span style="background-color: #000;"></span>
+                        </div>
+                        <div class="color-option" data-color="silver">
+                            <span style="background-color: #c0c0c0;"></span>
+                        </div>
+                        <div class="color-option" data-color="blue">
+                            <span style="background-color: #0000ff;"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quantity Selector -->
+                <div class="quantity-selector">
+                    <h3>Quantity:</h3>
+                    <div class="quantity-control">
+                        <button class="qty-btn minus">-</button>
+                        <input type="number" value="1" min="1" max="10">
+                        <button class="qty-btn plus">+</button>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="btn btn-add-to-cart">
+                        <i class="fas fa-shopping-cart"></i> Add to Cart
+                    </button>
+                    <button class="btn btn-buy-now">Buy Now</button>
+                </div>
+
+                <!-- Product Meta -->
+                <div class="product-meta">
+                    <div class="meta-item">
+                        <i class="fas fa-truck"></i>
+                        <span>Free shipping on orders over $50</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-undo"></i>
+                        <span>30-day free returns</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>2-year warranty</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Tabs -->
+    <!-- <section class="product-tabs">
+        <div class="container">
+            <div class="tabs-header">
+                <button class="tab-btn active" data-tab="description">Description</button>
+                <button class="tab-btn" data-tab="specs">Specifications</button>
+                <button class="tab-btn" data-tab="reviews">Reviews</button>
+            </div>
+            <div class="tabs-content">
+                <div id="description" class="tab-pane active">
+                    <h3>Product Details</h3>
+                    <p>Our Premium Wireless Headphones deliver an unparalleled listening experience with cutting-edge technology:</p>
+                    <ul>
+                        <li>Active Noise Cancellation (ANC) blocks external noise</li>
+                        <li>40mm dynamic drivers for rich, balanced sound</li>
+                        <li>30-hour battery life with quick charge (5 min charge = 4 hrs playback)</li>
+                        <li>Bluetooth 5.0 with 30ft range</li>
+                        <li>Built-in microphone for calls and voice assistants</li>
+                        <li>Includes premium carrying case and 3.5mm audio cable</li>
+                    </ul>
+                </div>
+                <div id="specs" class="tab-pane">
+                    <h3>Technical Specifications</h3>
+                    <table>
+                        <tr>
+                            <th>Driver Size</th>
+                            <td>40mm</td>
+                        </tr>
+                        <tr>
+                            <th>Frequency Response</th>
+                            <td>20Hz-20kHz</td>
+                        </tr>
+                        <tr>
+                            <th>Battery Life</th>
+                            <td>30 hours (ANC on), 40 hours (ANC off)</td>
+                        </tr>
+                        <tr>
+                            <th>Bluetooth Version</th>
+                            <td>5.0</td>
+                        </tr>
+                        <tr>
+                            <th>Weight</th>
+                            <td>254g</td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="reviews" class="tab-pane">
+                    <h3>Customer Reviews</h3>
+                    <div class="review">
+                        <div class="review-header">
+                            <div class="review-author">Alex Johnson</div>
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <div class="review-date">Posted on June 15, 2023</div>
+                        <div class="review-content">
+                            <p>These headphones are amazing! The noise cancellation works perfectly on my commute, and the sound quality is incredible for the price.</p>
+                        </div>
+                    </div> -->
+                    <!-- More reviews would go here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Products -->
+    <section class="related-products">
+        <div class="container">
+            <h2>You May Also Like</h2>
+            <div class="product-grid">
+                <!-- Product cards from products.html would go here -->
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
