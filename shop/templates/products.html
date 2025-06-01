@@ -20,11 +20,13 @@
         <div class="container">
             <div class="filter-group">
                 <span>Filter by:</span>
-                <select id="category-filter">
+                <select id="category-filter" onchange="filterProducts()">
                     <option value="all">All Categories</option>
-                    <option value="electronics">Electronics</option>
-                    <option value="clothing">Clothing</option>
-                    <option value="home">Home & Garden</option>
+                    {% for cat in Categories %}
+                    <option value="{{ cat.slug }}">{{ cat.name }}</option>
+                    {% endfor %}
+                    <!-- <option value="clothing">Clothing</option>
+                    <option value="home">Home & Garden</option> -->
                 </select>
             </div>
             <div class="filter-group">
@@ -44,7 +46,7 @@
             <div class="product-grid">
                 <!-- Product Cards (12 examples) -->
                  {% for product in products %}
-                <div class="product-card" data-category="electronics">
+                <div class="product-card" data-category="{{ product.category.slug }}">
                     <img src="{{ product.image.url }}" alt="{{ product.name }}">
                     <div class="product-info">
                         <h3>{{ product.name}}</h3>
@@ -80,4 +82,6 @@
             </div>
         </div>
     </section>
+    
+    <script src="{% static 'js/product.js' %}"></script>
 {% endblock %}

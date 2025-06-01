@@ -9,8 +9,10 @@ def home(request):
     return render(request, 'index.html', {'products': products})
     
 def product_list(request):
+
+    categories = Category.objects.all()
     products = Product.objects.all()
-    return render(request, 'products.html', {'products': products})
+    return render(request, 'products.html', {'products': products, 'Categories': categories})
 
 def about_us(request):
     team = Team.objects.all
@@ -23,3 +25,6 @@ def product_detail(request, product_id,slug):
     product = get_object_or_404(Product, id = product_id, slug = slug)
     
     return render(request, 'product_detail.html', {'product':product})
+
+def cart(request):
+    return render(request, 'cart.html', {})
