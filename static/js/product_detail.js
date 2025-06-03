@@ -71,3 +71,56 @@ document.querySelector('.btn-wishlist').addEventListener('click', function() {
     this.querySelector('i').classList.toggle('far');
     this.querySelector('i').classList.toggle('fas');
 });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Quantity controls
+    document.querySelectorAll('.quantity-control').forEach(control => {
+        const input = control.querySelector('.qty-input');
+        const minusBtn = control.querySelector('.minus');
+        const plusBtn = control.querySelector('.plus');
+
+        // Minus button
+        minusBtn.addEventListener('click', () => {
+            let value = parseInt(input.value);
+            if (value > parseInt(input.min)) {
+                input.value = value - 1;
+            }
+        });
+
+        // Plus button
+        plusBtn.addEventListener('click', () => {
+            let value = parseInt(input.value);
+            if (value < parseInt(input.max)) {
+                input.value = value + 1;
+            }
+        });
+
+        // Input validation
+        input.addEventListener('change', () => {
+            let value = parseInt(input.value);
+            if (isNaN(value) || value < parseInt(input.min)) {
+                input.value = input.min;
+            } else if (value > parseInt(input.max)) {
+                input.value = input.max;
+            }
+        });
+    });
+
+    // Buy Now button (redirects to checkout)
+    document.getElementById('buy-now-btn')?.addEventListener('click', function() {
+        const form = this.closest('form');
+        const quantity = form.querySelector('.qty-input').value;
+        
+        // Submit form then redirect
+        fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        }).then(() => {
+            window.location.href = "{% url 'cart:checkout' %}";
+        });
+    });
+});

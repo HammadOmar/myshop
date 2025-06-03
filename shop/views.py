@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404
 from django.urls import reverse
 from .models import Product, Category, Team
+from django.conf import settings
 
 # Create your views here.
 
@@ -26,5 +27,3 @@ def product_detail(request, product_id,slug):
     
     return render(request, 'product_detail.html', {'product':product})
 
-def cart(request):
-    return render(request, 'cart.html', {})

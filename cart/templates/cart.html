@@ -7,6 +7,7 @@
 
 {% block content %}
     <!-- Cart Header -->
+{% if cart|length > 0 %}
     <section class="cart-header">
         <div class="container">
             <h1>Your Shopping Cart</h1>
@@ -18,26 +19,32 @@
     <section class="cart-main">
         <div class="container">
             <!-- Cart Items -->
+             {% for item in cart %}
             <div class="cart-items">
                 <div class="cart-item">
                     <div class="item-image">
-                        <img src="images/products/headphones.jpg" alt="Wireless Headphones">
+                        <img src="{{ item.product.image.url }}" alt="Wireless Headphones">
                     </div>
                     <div class="item-details">
-                        <h3>Wireless Headphones</h3>
-                        <p class="item-price">$99.99</p>
+                        <h3>{{ item.product.name }} x {{ item.quantity }}</h3>
+                        <p class="item-price">${{ item.product.price }}</p>
                         <div class="item-quantity">
                             <button class="quantity-btn minus">-</button>
-                            <input type="number" value="1" min="1" class="quantity-input">
+                            <input type="number" value="{{ item.quantity }}" min="1" class="quantity-input">
                             <button class="quantity-btn plus">+</button>
                         </div>
                     </div>
                     <div class="item-actions">
-                        <button class="remove-btn"><i class="fas fa-trash"></i> Remove</button>
-                        <p class="item-total">$99.99</p>
+                        <form action="{% url 'cart:cart_remove' item.product.id %}" method="post">
+                            {% csrf_token %}
+                            <button class="remove-btn"><i class="fas fa-trash"></i> Remove</button>
+                        </form>
+                        
+                        <p class="item-total">${{ item.total_price }}</p>
                     </div>
                 </div>
-
+                {% endfor %}
+<!-- 
                 <div class="cart-item">
                     <div class="item-image">
                         <img src="images/products/smartwatch.jpg" alt="Smart Watch">
@@ -56,26 +63,26 @@
                         <p class="item-total">$299.98</p>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- Cart Summary -->
             <div class="cart-summary">
                 <h2>Order Summary</h2>
                 <div class="summary-row">
-                    <span>Subtotal (2 items)</span>
-                    <span>$399.97</span>
+                    <span></span>
+                    <span>${{ cart.get_total_price }}</span>
                 </div>
                 <div class="summary-row">
                     <span>Shipping</span>
-                    <span>$9.99</span>
+                    <span>$0.00</span>
                 </div>
                 <div class="summary-row">
                     <span>Tax</span>
-                    <span>$32.00</span>
+                    <span>$0.00</span>
                 </div>
                 <div class="summary-row total">
                     <span>Total</span>
-                    <span>$441.96</span>
+                    <span>${{ cart.get_total_price }}</span>
                 </div>
                 <button class="btn checkout-btn">Proceed to Checkout</button>
                 <a href="{% url 'shop:product_list' %}" class="continue-shopping">Continue Shopping</a>
@@ -92,6 +99,7 @@
         </div>
     </section>
 
+
     <!-- Recommended Products -->
     <section class="recommended">
         <div class="container">
@@ -101,6 +109,20 @@
             </div>
         </div>
     </section>
+
+{% else %}
+    <section class="cart-header">
+        <div class="container">
+            <h1>Your Cart is Empty</h1>
+            <p><a href="{% url 'shop:product_list' %}" class="btn">Shop</a></p>
+        </div>
+    </section>
+{% endif %}
+
+
+
+
+
     <script src="{% static 'js/cart.js' %}"></script>
 
 {% endblock %}
